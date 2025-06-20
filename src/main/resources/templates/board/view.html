@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{layout/main::commonHead}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -26,5 +26,6 @@
     <input type="datetime-local" id="inputCreated" th:value="${board.createdAt}" readonly>
 </div>
 
+<th:block th:replace="~{layout/main::commonScript}"/>
 </body>
 </html>
