@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -21,5 +23,11 @@ public class BoardService {
         board.setWriter(formData.getWriter());
 
         boardRepository.save(board);
+    }
+
+    public List<Board> list() {
+        List<Board> list = boardRepository.findAll();
+
+        return list;
     }
 }
