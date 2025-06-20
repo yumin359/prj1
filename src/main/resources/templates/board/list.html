@@ -12,7 +12,20 @@
 </head>
 <body>
 <h2>게시물 목록</h2>
-
+<hr>
+<!--조회-->
+<form th:action="@{/board/list}">
+    <label>
+        제목명
+        <input type="text" name="keyword" th:value="${param.keyword ?: ''}">
+    </label>
+    <button>검색</button>
+    <!--    <label for="keywordInput">제목</label>-->
+    <!--    <input type="text" id="keywordInput" name="keyword">-->
+    <!--    th:value="${param.keyword ?: ''}">-->
+</form>
+<hr>
+<!--목록-->
 <!--table>thead>tr>th*4^^tbody>tr>td*4-->
 <table>
     <thead>
@@ -32,6 +45,30 @@
     </tr>
     </tbody>
 </table>
+
+<!--페이지 영역-->
+<div>
+    <!--    이전 버튼-->
+    <span th:if="${prevPage > 0}">
+        <a th:href="@{/board/list(page=${prevPage})}">
+            이전
+        </a>
+        |
+    </span>
+    <!-- 페이지 번호들 -->
+    <span th:each="num : ${#numbers.sequence(leftPage,rightPage)}">
+        <a th:href="@{/board/list(page=${num})}"
+           th:text="${num}"></a>
+        |
+    </span>
+    <!--    다음 버튼-->
+    <span th:if="${nextPage <= lastPage}">
+        <a th:href="@{/board/list(page=${nextPage})}">
+            다음
+        </a>
+        |
+    </span>
+</div>
 
 </body>
 </html>

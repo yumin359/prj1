@@ -19,3 +19,4 @@ FROM board;
 SELECT COUNT(*)
 FROM board;
 # 1280 개 만들었음
+DROP TABLE board;
