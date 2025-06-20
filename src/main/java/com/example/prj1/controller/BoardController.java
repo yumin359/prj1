@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -34,9 +35,10 @@ public class BoardController {
 
     // CRUD-R-List(목록보기), One(
     @GetMapping("list")
-    public String list(Model model) {
+    public String list(@RequestParam(defaultValue = "1") Integer page,
+                       Model model) {
 
-        var result = boardService.list();
+        var result = boardService.list(page); // 나는 128page가 마지막 페이지
 
         model.addAttribute("boardList", result);
 
