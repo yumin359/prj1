@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/main::commonHead}">
+<head th:replace="~{layout/main::commonHead('게시물 목록')}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
@@ -28,8 +28,7 @@
                     <tr th:each="board: ${boardList}">
                         <td th:text="${board.id}"></td>
                         <td>
-                            <a th:href="@{/board/view(id=${board.id})}"
-                               th:text="${board.title}"></a>
+                            <a th:href="@{/board/view(id=${board.id})}" th:text="${board.title}"></a>
                         </td>
                         <td th:text="${board.writer}"></td>
                         <td th:text="${board.createdAt}"></td>
@@ -40,7 +39,7 @@
 
             <!--nav>ul>li*3>a-->
             <nav>
-                <ul class="pagination" justify-content-center>
+                <ul class="pagination justify-content-center">
                     <li class="page-item" th:if="${leftPageNumber > 10}">
                         <a class="page-link" th:href="@{/board/list(page=${leftPageNumber - 10})}">
                             <span>&laquo;</span>
