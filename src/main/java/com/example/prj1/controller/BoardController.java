@@ -33,7 +33,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    // CRUD-R-List(목록보기), One(
+    // CRUD-R-List(목록보기)
     @GetMapping("list")
     public String list(@RequestParam(defaultValue = "1") Integer page,
                        Model model) {
@@ -46,5 +46,22 @@ public class BoardController {
         return "board/list";
     }
 
+    // CRUD-R-One(게시물 클릭하면 거기로 이동해서 하나 보기)
+    @GetMapping("view")
+    public String view(Integer id, Model model) {
+
+        // service에게 일 시키고
+        var dto = boardService.get(id);
+
+        // model에 넣고
+        model.addAttribute("board", dto);
+
+        // view로 forward
+        return "board/view";
+    }
+
+    // create, read 했고
+    // update, delete는 다음 시간에 하고
+    // 남은 시간에는 꾸미는 거 한대용
 
 }
