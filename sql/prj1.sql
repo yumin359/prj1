@@ -11,6 +11,7 @@ CREATE TABLE board
     created_at datetime           NOT NULL DEFAULT NOW(),
     CONSTRAINT pk_board PRIMARY KEY (id)
 );
+DROP TABLE board;
 
 # 페이징 용 글 복사
 INSERT INTO board(title, content, writer)

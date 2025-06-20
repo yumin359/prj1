@@ -20,7 +20,7 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>번호</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>작성일시</th>
@@ -39,11 +39,31 @@
                 </table>
             </div>
 
+            <!-- 조회 -->
+            <div class="mb-3 pagination justify-content-center">
+                <form th:action="@{/board/list}">
+                    <div class="input-group">
+                        <input class="form-control"
+                               type="text"
+                               name="keyword"
+                               placeholder="제목으로 검색"
+                               th:value="${param.keyword ?: ''}">
+                        <button class="btn btn-primary">검색</button>
+                    </div>
+                </form>
+            </div>
+
             <!--nav>ul>li*3>a-->
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:if="${leftPageNumber > 10}">
-                        <a class="page-link" th:href="@{/board/list(page=${leftPageNumber - 10})}">
+                        <a class="page-link" th:href="@{/board/list(page=${leftPageNumber - 10})}"
+                           th:if="${param.keyword == null}">
+                            <span>&laquo;</span>
+                        </a>
+                        <a class="page-link"
+                           th:href="@{/board/list(page=${leftPageNumber - 10}, keyword=${param.keyword})}"
+                           th:if="${param.keyword != null}">
                             <span>&laquo;</span>
                         </a>
                     </li>
@@ -52,10 +72,23 @@
                         th:classappend="${(currentPage == pageNumber) ? 'active' : ''}">
                         <a class="page-link"
                            th:href="@{/board/list(page=${pageNumber})}"
-                           th:text="${pageNumber}"></a>
+                           th:text="${pageNumber}"
+                           th:if="${param.keyword == null}">
+                        </a>
+                        <a class="page-link"
+                           th:href="@{/board/list(page=${pageNumber}, keyword=${param.keyword})}"
+                           th:text="${pageNumber}"
+                           th:if="${param.keyword != null}">
+                        </a>
                     </li>
                     <li class="page-item" th:if="${(rightPageNumber + 1) <= totalPages}">
-                        <a class="page-link" th:href="@{/board/list(page=${rightPageNumber + 1})}">
+                        <a class="page-link" th:href="@{/board/list(page=${rightPageNumber + 1})}"
+                           th:if="${param.keyword == null}">
+                            <span>&raquo;</span>
+                        </a>
+                        <a class="page-link"
+                           th:href="@{/board/list(page=${rightPageNumber + 1}, keyword=${param.keyword})}"
+                           th:if="${param.keyword != null}">
                             <span>&raquo;</span>
                         </a>
                     </li>

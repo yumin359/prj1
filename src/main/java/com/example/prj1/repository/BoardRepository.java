@@ -12,5 +12,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<BoardListInfo> findAllBy(); // 이건 그냥 남겨둘게요
 
     //    List<BoardListInfo> findAllBy(Pageable pageable);
+    Page<BoardListInfo> findAllByTitleContaining(String keyword, Pageable pageable);
+
     Page<BoardListInfo> findAllBy(Pageable pageable);
 }

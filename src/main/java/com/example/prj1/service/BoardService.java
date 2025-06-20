@@ -31,14 +31,22 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public Map<String, Object> list(Integer page) {
+    public Map<String, Object> list(Integer page, String keyword) {
 //        List<Board> list = boardRepository.findAll();
         // 이렇게 하면 본문까지 다 찾아본 거
         // 그래서 projection 으로 필요한 정보만 가져와보겠습니다
 //        List<BoardListInfo> boardList = boardRepository
 //                .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
-        Page<BoardListInfo> boardPage = boardRepository
-                .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        Page<BoardListInfo> boardPage;
+
+        if (keyword == null || keyword.isEmpty()) {
+            boardPage = boardRepository.findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+
+        } else {
+            boardPage = boardRepository
+                    .findAllByTitleContaining(keyword,
+                            PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        }
 
         List<BoardListInfo> boardList = boardPage.getContent();
 

@@ -38,9 +38,10 @@ public class BoardController {
     // CRUD-R-List(목록보기)
     @GetMapping("list")
     public String list(@RequestParam(defaultValue = "1") Integer page,
+                       String keyword,
                        Model model) {
 
-        var result = boardService.list(page);
+        var result = boardService.list(page, keyword);
 
 //        model.addAttribute("boardList", result);
         model.addAllAttributes(result);
