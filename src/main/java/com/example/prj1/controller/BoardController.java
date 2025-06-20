@@ -40,7 +40,8 @@ public class BoardController {
 
         var result = boardService.list(page); // 나는 128page가 마지막 페이지
 
-        model.addAttribute("boardList", result);
+//        model.addAttribute("boardList", result);
+        model.addAllAttributes(result);
 
         return "board/list";
     }
