@@ -22,6 +22,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    // 입력 받은 값 가져오는 service
     public void add(BoardForm formData) {
         Board board = new Board();
         board.setTitle(formData.getTitle());
@@ -31,6 +32,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    // 목록 보기 service
     public Map<String, Object> list(Integer page) {
 //        List<Board> list = boardRepository.findAll();
         // 이렇게 하면 본문까지 다 찾아본 거
@@ -56,7 +58,7 @@ public class BoardService {
         return result;
     }
 
-
+    // 하나 보기 service
     public BoardDto get(Integer id) {
         Board board = boardRepository.findById(id).get();
         BoardDto dto = new BoardDto();
