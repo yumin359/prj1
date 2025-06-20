@@ -19,18 +19,20 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    // create html 보기
     @GetMapping("write")
     public String write() {
 
         return "board/write";
     }
 
+    // create 실제로 되는 부분
     @PostMapping("write")
     public String writePost(BoardForm data) {
 
         boardService.add(data);
 
-        return "redirect:/board/list";
+        return "redirect:/board/list"; // 작성하고 list html로 넘어가게 함
     }
 
     // CRUD-R-List(목록보기)
@@ -38,7 +40,7 @@ public class BoardController {
     public String list(@RequestParam(defaultValue = "1") Integer page,
                        Model model) {
 
-        var result = boardService.list(page); // 나는 128page가 마지막 페이지
+        var result = boardService.list(page);
 
 //        model.addAttribute("boardList", result);
         model.addAllAttributes(result);
