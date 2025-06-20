@@ -1,6 +1,7 @@
 package com.example.prj1.service;
 
 import com.example.prj1.dto.BoardForm;
+import com.example.prj1.dto.BoardListInfo;
 import com.example.prj1.entity.Board;
 import com.example.prj1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,14 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public List<Board> list() {
-        List<Board> list = boardRepository.findAll();
+    public List<BoardListInfo> list() {
+//        List<Board> list = boardRepository.findAll();
+        // 이렇게 하면 본문까지 다 찾아본 거
+        // 그래서 projection 으로 필요한 정보만 가져와보겠습니다
+        List<BoardListInfo> boardList = boardRepository.findAllBy();
 
-        return list;
+        return boardList;
     }
+
+
 }
