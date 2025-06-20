@@ -18,3 +18,4 @@ public class BoardDto implements Serializable {
     String writer;
     LocalDateTime createdAt;
 }
+// 이거는 목록보기 말고 하나보기 할 때 쓴거네용
