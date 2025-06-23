@@ -66,4 +66,11 @@ public class BoardController {
     // update, delete는 다음 시간에 하고
     // 남은 시간에는 꾸미는 거 한대용
 
+    @PostMapping("remove")
+    public String remove(Integer id) {
+        boardService.remove(id);
+        return "redirect:/board/list";
+    }
+
+
 }
