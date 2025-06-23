@@ -52,5 +52,10 @@ public class MemberController {
 
     // 여까지가 회원 C
     // 나머지 회원 RUD 해봅시당 R은 하나보기 하면 됨
-    
+
+    @GetMapping("view")
+    public String view(String id, Model model) {
+        model.addAttribute("member", memberService.get(id));
+        return "member/view";
+    }
 }
