@@ -1,4 +1,4 @@
-package com.example.prj1.member;
+package com.example.prj1.member.controller;
 
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.service.MemberService;
@@ -52,5 +52,11 @@ public class MemberController {
 
     // 여까지가 회원 C
     // 나머지 회원 RUD 해봅시당 R은 하나보기 하면 됨
-    
+    @GetMapping("view")
+    public String view(String id, Model model) {
+        var dto = memberService.get(id);
+        model.addAttribute("member", dto);
+        return "member/view";
+    }
+
 }
