@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -75,4 +76,14 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    public void update(BoardForm data) {
+        // 조회
+        Board board = boardRepository.findById(data.getId()).get();
+        // 수정
+        board.setTitle(data.getTitle());
+        board.setContent(data.getContent());
+        board.setWriter(data.getWriter());
+        // 저장
+        boardRepository.save(board);
+    }
 }
