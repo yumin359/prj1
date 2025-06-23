@@ -1,13 +1,13 @@
-package com.example.prj1.dto;
+package com.example.prj1.board.dto;
 
+import com.example.prj1.board.entity.Board;
 import lombok.Data;
-import lombok.Value;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * DTO for {@link com.example.prj1.entity.Board}
+ * DTO for {@link Board}
  */
 //@Value
 @Data // 이거는 그냥 원하는 거 쓰면 된대여
