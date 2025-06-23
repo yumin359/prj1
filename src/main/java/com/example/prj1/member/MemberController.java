@@ -49,4 +49,8 @@ public class MemberController {
         model.addAttribute("memberList", memberService.list());
         return "member/list";
     }
+
+    // 여까지가 회원 C
+    // 나머지 회원 RUD 해봅시당 R은 하나보기 하면 됨
+    
 }
