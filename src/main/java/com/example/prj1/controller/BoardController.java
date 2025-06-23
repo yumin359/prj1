@@ -30,9 +30,12 @@ public class BoardController {
 
     // create 실제로 되는 부분
     @PostMapping("write")
-    public String writePost(BoardForm data) {
+    public String writePost(BoardForm data, RedirectAttributes rttr) {
 
         boardService.add(data);
+
+        rttr.addFlashAttribute("alert",
+                Map.of("code", "primary", "message", "새 게시물이 등록되었습니다."));
 
         return "redirect:/board/list"; // 작성하고 list html로 넘어가게 함
     }
