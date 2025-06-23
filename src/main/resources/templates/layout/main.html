@@ -28,12 +28,20 @@
                     <li class="nav-item">
                         <a th:href="@{/board/list}"
                            class="nav-link"
-                           th:classappend="${current == 'list' ? 'active' : ''}">목록</a>
+                           th:classappend="${current == 'list' ? 'active' : ''}">
+                            목록</a>
                     </li>
                     <li class="nav-item">
                         <a th:href="@{/board/write}"
                            class="nav-link"
-                           th:classappend="${current == 'write' ? 'active' : ''}">작성</a>
+                           th:classappend="${current == 'write' ? 'active' : ''}">
+                            작성</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/member/signup}"
+                           class="nav-link"
+                           th:classappend="${current == 'signup' ? 'active' : ''}">
+                            회원가입</a>
                     </li>
                 </ul>
             </div>
