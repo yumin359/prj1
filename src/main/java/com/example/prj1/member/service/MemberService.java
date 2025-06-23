@@ -63,4 +63,18 @@ public class MemberService {
         return dto;
     }
 
+    public boolean remove(MemberForm data) {
+        Member member = memberRepository.findById(data.getId()).get();
+
+        String dbPw = member.getPassword();
+        String formPw = data.getPassword();
+
+        if (dbPw.equals(formPw)) {
+            memberRepository.delete(member);
+            return true;
+        } else {
+            return false;
+            // 익셉션이든 불리언이든 상관 없음 그냥 코딩 스타일 회사 따라가면 됨
+        }
+    }
 }
