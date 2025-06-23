@@ -1,6 +1,7 @@
 package com.example.prj1.member.service;
 
 import com.example.prj1.member.dto.MemberForm;
+import com.example.prj1.member.dto.MemberListInfo;
 import com.example.prj1.member.entity.Member;
 import com.example.prj1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,6 +45,10 @@ public class MemberService {
         }
 
 
+    }
+
+    public List<MemberListInfo> list() {
+        return memberRepository.findAllBy();
     }
 
 
