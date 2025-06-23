@@ -77,4 +77,39 @@ public class MemberService {
             // 익셉션이든 불리언이든 상관 없음 그냥 코딩 스타일 회사 따라가면 됨
         }
     }
+
+    public boolean update(MemberForm data) {
+        // 조회
+        Member member = memberRepository.findById(data.getId()).get();
+
+        String dbPw = member.getPassword();
+        String formPw = data.getPassword();
+
+        if (dbPw.equals(formPw)) {
+            // 변경
+            member.setNickName(data.getNickName());
+            member.setInfo(data.getInfo());
+            // 저장
+            memberRepository.save(member);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public boolean updatePassword(String id, String oldPassword, String newPassword) {
+        Member db = memberRepository.findById(id).get();
+
+        String dbPw = db.getPassword();
+        if (dbPw.equals(oldPassword)) {
+            db.setPassword(newPassword);
+            memberRepository.save(db);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
 }

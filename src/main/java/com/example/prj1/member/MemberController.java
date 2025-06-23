@@ -77,4 +77,47 @@ public class MemberController {
         }
     }
 
+    @GetMapping("edit")
+    public String edit(String id, Model model) {
+        model.addAttribute("member", memberService.get(id));
+        return "member/edit";
+    }
+
+    @PostMapping("edit")
+    public String edit(MemberForm data, RedirectAttributes rttr) {
+        boolean result = memberService.update(data);
+
+        if (result) {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "success", "message", "회원 정보가 변경되었습니다."));
+            rttr.addAttribute("id", data.getId());
+            return "redirect:/member/view";
+        } else {
+            rttr.addAttribute("id", data.getId());
+
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning", "message", "암호가 일치하지 않습니다."));
+            return "redirect:/member/edit";
+        }
+    }
+
+    @PostMapping("changePW")
+    public String changePassword(String id,
+                                 String oldPassword,
+                                 String newPassword,
+                                 RedirectAttributes rttr) {
+        boolean result = memberService.updatePassword(id, oldPassword, newPassword);
+        if (result) {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "success", "message", "암호가 변경되었습니다."));
+        } else {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning", "message", "암호가 일치하지 않습니다."));
+
+        }
+
+        rttr.addAttribute("id", id);
+        return "redirect:/member/edit";
+    }
+
 }
