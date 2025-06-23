@@ -101,11 +101,12 @@ public class MemberController {
         }
     }
 
-    @PostMapping("changePW")
+    @PostMapping("changePw")
     public String changePassword(String id,
                                  String oldPassword,
                                  String newPassword,
                                  RedirectAttributes rttr) {
+
         boolean result = memberService.updatePassword(id, oldPassword, newPassword);
         if (result) {
             rttr.addFlashAttribute("alert",

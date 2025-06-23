@@ -39,7 +39,8 @@
                         data-bs-target="#removeModal">회원 탈퇴
                 </button>
                 <a th:href="@{/member/edit(id=${member.id})}"
-                   class="btn btn-outline-secondary">수정</a>
+                   class="btn btn-outline-secondary">수정
+                </a>
             </div>
         </div>
     </div>
@@ -59,6 +60,7 @@
                 <form id="removeForm" th:action="@{/member/remove}" method="post">
                     <input type="hidden" name="id" th:value="${member.id}">
                     <div>
+                        <!--                        label.form-label+input.form-control-->
                         <label for="inputPassword" class="form-label">암호</label>
                         <input placeholder="기존 암호를 입력하세요."
                                id="inputPassword"
