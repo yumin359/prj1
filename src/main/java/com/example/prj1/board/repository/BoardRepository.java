@@ -19,12 +19,12 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     void deleteByWriter(Member member);
 
-    @Query(value = """
+    @Query("""
             SELECT b
-            FROM Board b 
+            FROM Board b
             WHERE b.title LIKE :keyword
-            OR b.content LIKE :keyword
-            OR b.writer.nickName LIKE :keyword 
+               OR b.content LIKE :keyword
+               OR b.writer.nickName LIKE :keyword
             """)
     Page<BoardListInfo> searchByKeyword(String keyword, PageRequest pageRequest);
 }
