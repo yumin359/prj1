@@ -1,4 +1,4 @@
-package com.example.prj1.member;
+package com.example.prj1.member.controller;
 
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.service.MemberService;
