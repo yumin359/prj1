@@ -72,6 +72,7 @@
                         <a th:href="@{/member/view(id=${session.loggedInUser.id})}"
                            class="nav-link"
                            th:classappend="${current == 'memberView' ? 'active' : ''}">
+                            <i class="fa-regular fa-circle-user"></i>
                             <span th:text="${session.loggedInUser.nickName}">별명</span>
                         </a>
                     </li>
@@ -86,7 +87,7 @@
                     <button class="btn btn-outline-success">
                         <span style="word-break: keep-all">
                             <!-- 이러면 한글이라도 단어 단위로 짤린?대요 -->
-                            검색
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </span>
                     </button>
                 </form>
