@@ -69,6 +69,12 @@
                         </a>
                     </li>
                 </ul>
+
+                <form th:action="@{/board/list}" class="d-flex">
+                    <input type="text" class="form-control me-2" name="keyword">
+                    <button class="btn btn-outline-success">검색</button>
+                </form>
+
             </div>
         </div>
     </nav>

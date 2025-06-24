@@ -40,14 +40,22 @@ public class BoardService {
     }
 
     // 목록 보기 service
-    public Map<String, Object> list(Integer page) {
+    public Map<String, Object> list(Integer page, String keyword) {
 //        List<Board> list = boardRepository.findAll();
         // 이렇게 하면 본문까지 다 찾아본 거
         // 그래서 projection 으로 필요한 정보만 가져와보겠습니다
 //        List<BoardListInfo> boardList = boardRepository
 //                .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
-        Page<BoardListInfo> boardPage = boardRepository
-                .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+
+        Page<BoardListInfo> boardPage = null;
+
+        if (keyword == null || keyword.isBlank()) {
+            boardPage = boardRepository
+                    .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        } else {
+            boardPage = boardRepository.searchByKeyword("%" + keyword + "%",
+                    PageRequest.of(page - 1, 10, Sort.by("id").descending()));
+        }
 
         List<BoardListInfo> boardList = boardPage.getContent();
 
