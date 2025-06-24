@@ -1,6 +1,7 @@
 package com.example.prj1.board.dto;
 
 import com.example.prj1.board.entity.Board;
+import com.example.prj1.member.dto.MemberDto;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ public class BoardDto implements Serializable {
     Integer id;
     String title;
     String content;
-    String writer;
+    MemberDto writer;
     LocalDateTime createdAt;
 }
 // 이거는 목록보기 말고 하나보기 할 때 쓴거네용

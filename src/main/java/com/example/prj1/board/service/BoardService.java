@@ -69,12 +69,16 @@ public class BoardService {
     public BoardDto get(Integer id) {
         Board board = boardRepository.findById(id).get();
         BoardDto dto = new BoardDto();
+        dto.setId(board.getId());
         dto.setTitle(board.getTitle());
         dto.setContent(board.getContent());
 
-        // TODO : 나중에 변경
-//        dto.setWriter(board.getWriter());
-        dto.setId(board.getId());
+        MemberDto memberDto = new MemberDto();
+        memberDto.setId(board.getWriter().getId());
+        memberDto.setNickName(board.getWriter().getNickName());
+
+        dto.setWriter(memberDto);
+        // dto.setWriter(board.getWriter());
         dto.setCreatedAt(board.getCreatedAt());
 
         return dto;
