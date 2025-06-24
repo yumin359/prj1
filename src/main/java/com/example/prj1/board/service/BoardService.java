@@ -5,6 +5,7 @@ import com.example.prj1.board.dto.BoardForm;
 import com.example.prj1.board.dto.BoardListInfo;
 import com.example.prj1.board.entity.Board;
 import com.example.prj1.board.repository.BoardRepository;
+import com.example.prj1.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,11 +24,11 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     // 입력 받은 값 가져오는 service
-    public void add(BoardForm formData) {
+    public void add(BoardForm formData, MemberDto user) {
         Board board = new Board();
         board.setTitle(formData.getTitle());
         board.setContent(formData.getContent());
-        board.setWriter(formData.getWriter());
+        board.setWriter(user.getId());
 
         boardRepository.save(board);
     }
@@ -81,7 +82,7 @@ public class BoardService {
         // 수정
         board.setTitle(data.getTitle());
         board.setContent(data.getContent());
-        board.setWriter(data.getWriter());
+
         // 저장
         boardRepository.save(board);
     }
