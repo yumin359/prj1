@@ -32,3 +32,22 @@ CREATE TABLE member
     CONSTRAINT pk_member PRIMARY KEY (id)
 );
 DROP TABLE member;
+
+# 회원만 글을 작성할 수 있으므로
+# board.writer를 member.id로 수정
+# 외래키 제약 사항 추가
+
+# cho 홀수
+# lee 짝수
+
+UPDATE board
+SET writer = 'cho'
+WHERE id % 2 = 1;
+
+UPDATE board
+SET writer = 'lee'
+WHERE id % 2 = 0;
+
+# 외래키 제약 사항 추가
+ALTER TABLE board
+    ADD FOREIGN KEY (writer) REFERENCES member (id);
