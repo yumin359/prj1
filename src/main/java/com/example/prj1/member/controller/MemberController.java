@@ -1,5 +1,6 @@
 package com.example.prj1.member.controller;
 
+import com.example.prj1.member.dto.MemberDto;
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
@@ -55,9 +57,22 @@ public class MemberController {
     // 나머지 회원 RUD 해봅시당 R은 하나보기 하면 됨
 
     @GetMapping("view")
-    public String view(String id, Model model) {
-        model.addAttribute("member", memberService.get(id));
-        return "member/view";
+    public String view(String id,
+                       @SessionAttribute(value = "loggedInUser", required = false)
+                       MemberDto user,
+                       Model model,
+                       RedirectAttributes rttr) {
+        MemberDto member = memberService.get(id);
+
+        if (user != null) {
+            if (member.getId().equals(user.getId())) {
+                model.addAttribute("member", member);
+                return "member/view";
+            }
+        }
+        rttr.addFlashAttribute("alert",
+                Map.of("code", "warning", "message", "권한이 없습니다."));
+        return "redirect:/board/list";
     }
 
     @PostMapping("remove")
