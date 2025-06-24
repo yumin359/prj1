@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
@@ -76,16 +77,28 @@ public class BoardController {
 
     // CRUD-R-One(게시물 클릭하면 거기로 이동해서 하나 보기)
     @GetMapping("view")
-    public String view(Integer id, Model model) {
+    public String view(Integer id, Model model, RedirectAttributes rttr) {
 
-        // service에게 일 시키고
-        var dto = boardService.get(id);
+        // 게시물이 존재하지 않을 때 오류페이지에 대해서 해킹이 될 수 있는지 물어봤더니 gpt가 알려준 코드
+        // null 체크해서 경고 메시지와 함께 리디렉트
+        try {
+            // service에서도 잡아줄 수 있는데 일단 이렇게 해보기로 함
+            // 문제 없으면 아래 순서대로 진행
 
-        // model에 넣고
-        model.addAttribute("board", dto);
+            // service에게 일 시키고
+            var dto = boardService.get(id);
+            // model에 넣고
+            model.addAttribute("board", dto);
+            // view로 forward
+            return "board/view";
 
-        // view로 forward
-        return "board/view";
+        } catch (NoSuchElementException e) { // 문제 생기면 이거
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning", "message", "존재하지 않는 게시물입니다."));
+            return "redirect:/board/list";
+        }
+        // 이렇게 하니까 되넹 ㅎ
+
     }
 
     // create, read 했고
