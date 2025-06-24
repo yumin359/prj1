@@ -82,7 +82,7 @@ public class MemberController {
                          MemberDto user,
                          RedirectAttributes rttr) {
         boolean result = memberService.remove(data, user);
-        // TODO : 작성한 글이 있으면 탈퇴 안 됨
+        // TODO : 탈퇴 후 로그아웃 되어야 함.
         if (result) {
             rttr.addFlashAttribute("alert",
                     Map.of("code", "danger", "message", data.getId() + "님 탈퇴되었습니다."));

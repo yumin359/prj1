@@ -2,6 +2,7 @@ package com.example.prj1.board.repository;
 
 import com.example.prj1.board.dto.BoardListInfo;
 import com.example.prj1.board.entity.Board;
+import com.example.prj1.member.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     //    List<BoardListInfo> findAllBy(Pageable pageable);
     Page<BoardListInfo> findAllBy(Pageable pageable);
+
+    void deleteByWriter(Member member);
 }
