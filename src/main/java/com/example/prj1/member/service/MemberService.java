@@ -64,19 +64,23 @@ public class MemberService {
         return dto;
     }
 
-    public boolean remove(MemberForm data) {
-        Member member = memberRepository.findById(data.getId()).get();
+    public boolean remove(MemberForm data, MemberDto user) {
+        if (user != null) {
+            Member member = memberRepository.findById(data.getId()).get();
+            if (member.getId().equals(user.getId())) {
+                String dbPw = member.getPassword();
+                String formPw = data.getPassword();
 
-        String dbPw = member.getPassword();
-        String formPw = data.getPassword();
+                if (dbPw.equals(formPw)) {
+                    memberRepository.delete(member);
+                    return true;
 
-        if (dbPw.equals(formPw)) {
-            memberRepository.delete(member);
-            return true;
-        } else {
-            return false;
-            // 익셉션이든 불리언이든 상관 없음 그냥 코딩 스타일 회사 따라가면 됨
+                }
+
+            }
         }
+        return false;
+        // 익셉션이든 불리언이든 상관 없음 그냥 코딩 스타일 회사 따라가면 됨
     }
 
     public boolean update(MemberForm data) {
