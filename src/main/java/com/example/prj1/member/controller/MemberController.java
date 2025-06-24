@@ -150,9 +150,12 @@ public class MemberController {
 
     }
 
+    // @GetMapping("logout") // 아마 이거로 쓰려는 것 같다는데 gpt는
     @RequestMapping("logout")
     public String logout(HttpSession session, RedirectAttributes rttr) {
         session.invalidate();
+        // 로그인 정보 및 세션에 저장된 모든 데이터를 삭제하고, 세션 자체를 무효화(종료) 시킴
+        // 그래서 로그아웃이나 회원 탈퇴 같은 "사용자 상태 초기화" 시점에만 쓰는 게 좋대
         rttr.addFlashAttribute("alert",
                 Map.of("code", "success", "message", "로그아웃 되었습니다."));
         return "redirect:/board/list";
