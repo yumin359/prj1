@@ -84,7 +84,7 @@ public class MemberService {
         // 익셉션이든 불리언이든 상관 없음 그냥 코딩 스타일 회사 따라가면 됨
     }
 
-    public boolean update(MemberForm data, MemberDto user) {
+    public boolean update(MemberForm data, MemberDto user, HttpSession session) {
         if (user != null) {
             // 조회
             Member member = memberRepository.findById(data.getId()).get();
@@ -99,11 +99,26 @@ public class MemberService {
                     member.setInfo(data.getInfo());
                     // 저장
                     memberRepository.save(member);
+
+                    // dto 만들어서 session에 저장
+                    addUserToSession(session, member);
+
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    // dto 만들어서 session에 넣는 메소드 따로 만들었음 인텔리제이 도움을 받아서
+    private static void addUserToSession(HttpSession session, Member member) {
+        MemberDto dto = new MemberDto();
+        dto.setId(member.getId());
+        dto.setNickName(member.getNickName());
+        dto.setInfo(member.getInfo());
+        dto.setCreatedAt(member.getCreatedAt());
+
+        session.setAttribute("loggedInUser", dto);
     }
 
 
@@ -128,13 +143,7 @@ public class MemberService {
             if (dbPassword.equals(password)) {
 
                 // memberDto를 session에 넣기
-                MemberDto dto = new MemberDto();
-                dto.setId(db.get().getId());
-                dto.setNickName(db.get().getNickName());
-                dto.setInfo(db.get().getInfo());
-                dto.setCreatedAt(db.get().getCreatedAt());
-
-                session.setAttribute("loggedInUser", dto);
+                addUserToSession(session, db.get());
 
                 return true;
             }
