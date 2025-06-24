@@ -75,13 +75,14 @@ public class MemberController {
         return "redirect:/board/list";
     }
 
+
     @PostMapping("remove")
     public String remove(MemberForm data,
                          @SessionAttribute(value = "loggedInUser", required = false)
                          MemberDto user,
                          RedirectAttributes rttr) {
         boolean result = memberService.remove(data, user);
-
+        // TODO : 작성한 글이 있으면 탈퇴 안 됨
         if (result) {
             rttr.addFlashAttribute("alert",
                     Map.of("code", "danger", "message", data.getId() + "님 탈퇴되었습니다."));
@@ -114,13 +115,14 @@ public class MemberController {
         return "redirect:/board/list";
     }
 
+
     @PostMapping("edit")
     public String edit(MemberForm data,
                        @SessionAttribute(value = "loggedInUser", required = false)
                        MemberDto user,
                        RedirectAttributes rttr) {
         boolean result = memberService.update(data, user);
-
+        // TODO : 닉네임 변경 후 네브바 반영 하기
         if (result) {
             rttr.addFlashAttribute("alert",
                     Map.of("code", "success", "message", "회원 정보가 변경되었습니다."));
