@@ -64,6 +64,7 @@ public class MemberService {
         return dto;
     }
 
+    // 안 틀렸겠지 흠 졸ㄹ닏디
     public boolean remove(MemberForm data, MemberDto user) {
         if (user != null) {
             Member member = memberRepository.findById(data.getId()).get();
@@ -83,23 +84,26 @@ public class MemberService {
         // 익셉션이든 불리언이든 상관 없음 그냥 코딩 스타일 회사 따라가면 됨
     }
 
-    public boolean update(MemberForm data) {
-        // 조회
-        Member member = memberRepository.findById(data.getId()).get();
+    public boolean update(MemberForm data, MemberDto user) {
+        if (user != null) {
+            // 조회
+            Member member = memberRepository.findById(data.getId()).get();
+            if (member.getId().equals(user.getId())) {
+                String dbPw = member.getPassword();
+                String formPw = data.getPassword();
 
-        String dbPw = member.getPassword();
-        String formPw = data.getPassword();
 
-        if (dbPw.equals(formPw)) {
-            // 변경
-            member.setNickName(data.getNickName());
-            member.setInfo(data.getInfo());
-            // 저장
-            memberRepository.save(member);
-            return true;
-        } else {
-            return false;
+                if (dbPw.equals(formPw)) {
+                    // 변경
+                    member.setNickName(data.getNickName());
+                    member.setInfo(data.getInfo());
+                    // 저장
+                    memberRepository.save(member);
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
 
