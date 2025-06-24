@@ -112,7 +112,8 @@ public class MemberService {
         }
     }
 
-
+    // TODO : 여기 저기 쓰면 TODO 목록 볼 수 있음
+    // FIXME : 고쳐주세용
     public boolean login(String id, String password, HttpSession session) {
         Optional<Member> db = memberRepository.findById(id);
         if (db.isPresent()) {

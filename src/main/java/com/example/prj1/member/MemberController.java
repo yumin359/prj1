@@ -134,6 +134,7 @@ public class MemberController {
 
         boolean result = memberService.login(id, password, session);
 
+        // TODO : 아무거나 쓰는 중
         if (result) {
             rttr.addFlashAttribute("alert",
                     Map.of("code", "success", "message", "로그인 되었습니다."));
